@@ -32,17 +32,17 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
     listeningState();
   }
 
-  listeningState() async {
+  Future<void> listeningState() async {
     print('Listening to bluetooth state');
-    _streamBluetooth = flutterBeacon
-        .bluetoothStateChanged()
-        .listen((BluetoothState state) async {
+    _streamBluetooth = flutterBeacon.bluetoothStateChanged().listen((
+      BluetoothState state,
+    ) async {
       controller.updateBluetoothState(state);
       await checkAllRequirements();
     });
   }
 
-  checkAllRequirements() async {
+  Future<void> checkAllRequirements() async {
     final bluetoothState = await flutterBeacon.bluetoothState;
     controller.updateBluetoothState(bluetoothState);
     print('BLUETOOTH $bluetoothState');
@@ -134,9 +134,10 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
           }),
           Obx(() {
             return IconButton(
-              tooltip: controller.locationServiceEnabled
-                  ? 'Location Service ON'
-                  : 'Location Service OFF',
+              tooltip:
+                  controller.locationServiceEnabled
+                      ? 'Location Service ON'
+                      : 'Location Service OFF',
               icon: Icon(
                 controller.locationServiceEnabled
                     ? Icons.location_on
@@ -144,9 +145,10 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
               ),
               color:
                   controller.locationServiceEnabled ? Colors.blue : Colors.red,
-              onPressed: controller.locationServiceEnabled
-                  ? () {}
-                  : handleOpenLocationSettings,
+              onPressed:
+                  controller.locationServiceEnabled
+                      ? () {}
+                      : handleOpenLocationSettings,
             );
           }),
           Obx(() {
@@ -181,10 +183,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
       ),
       body: IndexedStack(
         index: currentIndex,
-        children: const [
-          TabScanning(),
-          TabBroadcasting(),
-        ],
+        children: const [TabScanning(), TabBroadcasting()],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
@@ -201,10 +200,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
           }
         },
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: 'Scan',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Scan'),
           BottomNavigationBarItem(
             icon: Icon(Icons.bluetooth_audio),
             label: 'Broadcast',
@@ -214,7 +210,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
     );
   }
 
-  handleOpenLocationSettings() async {
+  Future<void> handleOpenLocationSettings() async {
     if (Platform.isAndroid) {
       await flutterBeacon.openLocationSettings;
     } else if (Platform.isIOS) {
@@ -238,7 +234,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
     }
   }
 
-  handleOpenBluetooth() async {
+  Future<void> handleOpenBluetooth() async {
     if (Platform.isAndroid) {
       try {
         await flutterBeacon.openBluetoothSettings;
@@ -251,8 +247,9 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
         builder: (context) {
           return AlertDialog(
             title: const Text('Bluetooth is Off'),
-            content:
-                const Text('Please enable Bluetooth on Settings > Bluetooth.'),
+            content: const Text(
+              'Please enable Bluetooth on Settings > Bluetooth.',
+            ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),

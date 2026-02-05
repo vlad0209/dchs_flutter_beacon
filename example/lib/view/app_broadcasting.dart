@@ -16,9 +16,11 @@ class TabBroadcastingState extends State<TabBroadcasting> {
   bool broadcasting = false;
 
   final regexUUID = RegExp(
-      r'[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}');
-  final uuidController =
-      TextEditingController(text: 'CB10023F-A318-3394-4199-A8730C7C1AEC');
+    r'[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}',
+  );
+  final uuidController = TextEditingController(
+    text: 'CB10023F-A318-3394-4199-A8730C7C1AEC',
+  );
   final majorController = TextEditingController(text: '0');
   final minorController = TextEditingController(text: '0');
 
@@ -38,7 +40,7 @@ class TabBroadcastingState extends State<TabBroadcasting> {
     });
   }
 
-  initBroadcastBeacon() async {
+  Future<void> initBroadcastBeacon() async {
     await flutterBeacon.initializeScanning;
   }
 
@@ -54,27 +56,28 @@ class TabBroadcastingState extends State<TabBroadcasting> {
       body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(clearFocus),
         child: Obx(
-          () => broadcastReady != true
-              ? const Center(child: Text('Please wait...'))
-              : Form(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        uuidField,
-                        majorField,
-                        minorField,
-                        const SizedBox(height: 16),
-                        buttonBroadcast,
-                      ],
+          () =>
+              broadcastReady != true
+                  ? const Center(child: Text('Please wait...'))
+                  : Form(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          uuidField,
+                          majorField,
+                          minorField,
+                          const SizedBox(height: 16),
+                          buttonBroadcast,
+                        ],
+                      ),
                     ),
                   ),
-                ),
         ),
       ),
     );
@@ -84,9 +87,7 @@ class TabBroadcastingState extends State<TabBroadcasting> {
     return TextFormField(
       readOnly: broadcasting,
       controller: uuidController,
-      decoration: const InputDecoration(
-        labelText: 'Proximity UUID',
-      ),
+      decoration: const InputDecoration(labelText: 'Proximity UUID'),
       validator: (val) {
         if (val == null || val.isEmpty) {
           return 'Proximity UUID required';
@@ -105,9 +106,7 @@ class TabBroadcastingState extends State<TabBroadcasting> {
     return TextFormField(
       readOnly: broadcasting,
       controller: majorController,
-      decoration: const InputDecoration(
-        labelText: 'Major',
-      ),
+      decoration: const InputDecoration(labelText: 'Major'),
       keyboardType: TextInputType.number,
       validator: (val) {
         if (val == null || val.isEmpty) {
@@ -133,9 +132,7 @@ class TabBroadcastingState extends State<TabBroadcasting> {
     return TextFormField(
       readOnly: broadcasting,
       controller: minorController,
-      decoration: const InputDecoration(
-        labelText: 'Minor',
-      ),
+      decoration: const InputDecoration(labelText: 'Minor'),
       keyboardType: TextInputType.number,
       validator: (val) {
         if (val == null || val.isEmpty) {
@@ -172,11 +169,13 @@ class TabBroadcastingState extends State<TabBroadcasting> {
         if (broadcasting) {
           await flutterBeacon.stopBroadcast();
         } else {
-          await flutterBeacon.startBroadcast(BeaconBroadcast(
-            proximityUUID: uuidController.text,
-            major: int.tryParse(majorController.text) ?? 0,
-            minor: int.tryParse(minorController.text) ?? 0,
-          ));
+          await flutterBeacon.startBroadcast(
+            BeaconBroadcast(
+              proximityUUID: uuidController.text,
+              major: int.tryParse(majorController.text) ?? 0,
+              minor: int.tryParse(minorController.text) ?? 0,
+            ),
+          );
         }
 
         final isBroadcasting = await flutterBeacon.isBroadcasting();

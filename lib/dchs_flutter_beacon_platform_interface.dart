@@ -33,7 +33,8 @@ abstract class DchsFlutterBeaconPlatform extends PlatformInterface {
   Future<bool> initializeScanning();
   Future<bool> initializeAndCheckScanning();
   Future<bool> setLocationAuthorizationTypeDefault(
-      AuthorizationStatus authorizationStatus);
+    AuthorizationStatus authorizationStatus,
+  );
   Future<AuthorizationStatus> get authorizationStatus;
   Future<bool> get checkLocationServicesIfEnabled;
   Future<BluetoothState> get bluetoothState;
@@ -56,4 +57,5 @@ abstract class DchsFlutterBeaconPlatform extends PlatformInterface {
   Future<void> stopBroadcast();
   Future<bool> isBroadcasting();
   Future<bool> isBroadcastSupported();
+  Future<bool> setEnableScheduledScanJobs(bool enable);
 }

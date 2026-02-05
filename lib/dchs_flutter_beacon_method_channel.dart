@@ -13,14 +13,18 @@ import 'src/region.dart';
 /// An implementation of [DchsFlutterBeaconPlatform] that uses method channels.
 class MethodChannelDchsFlutterBeacon extends DchsFlutterBeaconPlatform {
   static const MethodChannel _methodChannel = MethodChannel('flutter_beacon');
-  static const EventChannel _rangingChannel =
-      EventChannel('flutter_beacon_event');
-  static const EventChannel _monitoringChannel =
-      EventChannel('flutter_beacon_event_monitoring');
-  static const EventChannel _bluetoothStateChangedChannel =
-      EventChannel('flutter_bluetooth_state_changed');
-  static const EventChannel _authorizationStatusChangedChannel =
-      EventChannel('flutter_authorization_status_changed');
+  static const EventChannel _rangingChannel = EventChannel(
+    'flutter_beacon_event',
+  );
+  static const EventChannel _monitoringChannel = EventChannel(
+    'flutter_beacon_event_monitoring',
+  );
+  static const EventChannel _bluetoothStateChangedChannel = EventChannel(
+    'flutter_bluetooth_state_changed',
+  );
+  static const EventChannel _authorizationStatusChangedChannel = EventChannel(
+    'flutter_authorization_status_changed',
+  );
 
   Stream<BluetoothState>? _onBluetoothState;
   Stream<AuthorizationStatus>? _onAuthorizationStatus;
@@ -39,9 +43,12 @@ class MethodChannelDchsFlutterBeacon extends DchsFlutterBeaconPlatform {
 
   @override
   Future<bool> setLocationAuthorizationTypeDefault(
-      AuthorizationStatus authorizationStatus) async {
+    AuthorizationStatus authorizationStatus,
+  ) async {
     return await _methodChannel.invokeMethod(
-        'setLocationAuthorizationTypeDefault', authorizationStatus.value);
+      'setLocationAuthorizationTypeDefault',
+      authorizationStatus.value,
+    );
   }
 
   @override
@@ -52,8 +59,9 @@ class MethodChannelDchsFlutterBeacon extends DchsFlutterBeaconPlatform {
 
   @override
   Future<bool> get checkLocationServicesIfEnabled async {
-    final result =
-        await _methodChannel.invokeMethod('checkLocationServicesIfEnabled');
+    final result = await _methodChannel.invokeMethod(
+      'checkLocationServicesIfEnabled',
+    );
     return _parseBoolResult(result);
   }
 
@@ -89,38 +97,44 @@ class MethodChannelDchsFlutterBeacon extends DchsFlutterBeaconPlatform {
 
   @override
   Future<bool> setScanPeriod(int scanPeriod) async {
-    return await _methodChannel
-        .invokeMethod('setScanPeriod', {"scanPeriod": scanPeriod});
+    return await _methodChannel.invokeMethod('setScanPeriod', {
+      "scanPeriod": scanPeriod,
+    });
   }
 
   @override
   Future<bool> setBetweenScanPeriod(int scanPeriod) async {
-    return await _methodChannel.invokeMethod(
-        'setBetweenScanPeriod', {"betweenScanPeriod": scanPeriod});
+    return await _methodChannel.invokeMethod('setBetweenScanPeriod', {
+      "betweenScanPeriod": scanPeriod,
+    });
   }
 
   @override
   Future<bool> setBackgroundScanPeriod(int scanPeriod) async {
-    return await _methodChannel
-        .invokeMethod('setBackgroundScanPeriod', {"scanPeriod": scanPeriod});
+    return await _methodChannel.invokeMethod('setBackgroundScanPeriod', {
+      "scanPeriod": scanPeriod,
+    });
   }
 
   @override
   Future<bool> setBackgroundBetweenScanPeriod(int scanPeriod) async {
-    return await _methodChannel.invokeMethod(
-        'setBackgroundBetweenScanPeriod', {"betweenScanPeriod": scanPeriod});
+    return await _methodChannel.invokeMethod('setBackgroundBetweenScanPeriod', {
+      "betweenScanPeriod": scanPeriod,
+    });
   }
 
   @override
   Future<bool> setUseTrackingCache(bool enable) async {
-    return await _methodChannel
-        .invokeMethod('setUseTrackingCache', {"enable": enable});
+    return await _methodChannel.invokeMethod('setUseTrackingCache', {
+      "enable": enable,
+    });
   }
 
   @override
   Future<bool> setMaxTrackingAge(int maxTrackingAge) async {
-    return await _methodChannel
-        .invokeMethod('setMaxTrackingAge', {"maxTrackingAge": maxTrackingAge});
+    return await _methodChannel.invokeMethod('setMaxTrackingAge', {
+      "maxTrackingAge": maxTrackingAge,
+    });
   }
 
   @override
@@ -192,5 +206,12 @@ class MethodChannelDchsFlutterBeacon extends DchsFlutterBeaconPlatform {
       return result == 1;
     }
     return false;
+  }
+
+  @override
+  Future<bool> setEnableScheduledScanJobs(bool enable) async {
+    return await _methodChannel.invokeMethod('setEnableScheduledScanJobs', {
+      "enable": enable,
+    });
   }
 }

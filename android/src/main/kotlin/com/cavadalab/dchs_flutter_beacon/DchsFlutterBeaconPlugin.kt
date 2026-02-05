@@ -222,6 +222,15 @@ class DchsFlutterBeaconPlugin : FlutterPlugin, ActivityAware, MethodChannel.Meth
                     result.success(false)
                 }
             }
+            "setEnableScheduledScanJobs" -> {
+                val enabled = call.argument<Boolean>("enabled") ?: false
+                try {
+                    beaconManager!!.setEnableScheduledScanJobs(enabled)
+                    result.success(true)
+                } catch (e: RemoteException) {
+                    result.success(false)
+                }
+            }
             "setUseTrackingCache" -> {
                 val enabled = call.argument<Boolean>("enable") ?: false
                 BeaconManager.setUseTrackingCache(enabled)

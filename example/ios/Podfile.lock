@@ -1,5 +1,5 @@
 PODS:
-  - dchs_flutter_beacon (0.6.1):
+  - dchs_flutter_beacon (0.6.5):
     - Flutter
   - Flutter (1.0.0)
   - integration_test (0.0.1):
@@ -19,9 +19,9 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/integration_test/ios"
 
 SPEC CHECKSUMS:
-  dchs_flutter_beacon: a420bf9343ce3e8e58b161001842684d4dd05e5d
-  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  integration_test: 252f60fa39af5e17c3aa9899d35d908a0721b573
+  dchs_flutter_beacon: 88d72cc467de508d621e454ea66c6231d0897d4c
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  integration_test: 4a889634ef21a45d28d50d622cf412dc6d9f586e
 
 PODFILE CHECKSUM: a57f30d18f102dd3ce366b1d62a55ecbef2158e5
 

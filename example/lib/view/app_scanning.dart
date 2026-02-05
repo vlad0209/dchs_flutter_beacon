@@ -39,7 +39,7 @@ class TabScanningState extends State<TabScanning> {
     });
   }
 
-  initScanBeacon() async {
+  Future<void> initScanBeacon() async {
     await flutterBeacon.setScanPeriod(1000);
     await flutterBeacon.setBetweenScanPeriod(500);
     await flutterBeacon.setUseTrackingCache(true);
@@ -55,9 +55,10 @@ class TabScanningState extends State<TabScanning> {
         !controller.locationServiceEnabled ||
         !controller.bluetoothEnabled) {
       print(
-          'RETURNED, authorizationStatusOk=${controller.authorizationStatusOk}, '
-          'locationServiceEnabled=${controller.locationServiceEnabled}, '
-          'bluetoothEnabled=${controller.bluetoothEnabled}');
+        'RETURNED, authorizationStatusOk=${controller.authorizationStatusOk}, '
+        'locationServiceEnabled=${controller.locationServiceEnabled}, '
+        'bluetoothEnabled=${controller.bluetoothEnabled}',
+      );
       return;
     }
     var regions = <Region>[];
@@ -81,11 +82,7 @@ class TabScanningState extends State<TabScanning> {
         ),
       ];
     } else {
-      regions = [
-        Region(
-          identifier: 'all-beacons',
-        ),
-      ];
+      regions = [Region(identifier: 'all-beacons')];
     }
 
     if (_streamRanging != null) {
@@ -95,8 +92,9 @@ class TabScanningState extends State<TabScanning> {
       }
     }
 
-    _streamRanging =
-        flutterBeacon.ranging(regions).listen((RangingResult result) {
+    _streamRanging = flutterBeacon.ranging(regions).listen((
+      RangingResult result,
+    ) {
       print(result);
       if (mounted) {
         setState(() {
@@ -111,7 +109,7 @@ class TabScanningState extends State<TabScanning> {
     });
   }
 
-  pauseScanBeacon() async {
+  Future<void> pauseScanBeacon() async {
     _streamRanging?.pause();
     if (_beacons.isNotEmpty) {
       setState(() {
@@ -143,44 +141,44 @@ class TabScanningState extends State<TabScanning> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _beacons.isEmpty
-          ? const Center(child: CircularProgressIndicator())
-          : ListView(
-              children: ListTile.divideTiles(
-                context: context,
-                tiles: _beacons.map(
-                  (beacon) {
-                    return ListTile(
-                      title: Text(
-                        beacon.proximityUUID,
-                        style: const TextStyle(fontSize: 15.0),
-                      ),
-                      subtitle: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: <Widget>[
-                          Flexible(
-                            flex: 1,
-                            fit: FlexFit.tight,
-                            child: Text(
-                              'Major: ${beacon.major}\nMinor: ${beacon.minor}',
-                              style: const TextStyle(fontSize: 13.0),
-                            ),
+      body:
+          _beacons.isEmpty
+              ? const Center(child: CircularProgressIndicator())
+              : ListView(
+                children:
+                    ListTile.divideTiles(
+                      context: context,
+                      tiles: _beacons.map((beacon) {
+                        return ListTile(
+                          title: Text(
+                            beacon.proximityUUID,
+                            style: const TextStyle(fontSize: 15.0),
                           ),
-                          Flexible(
-                            flex: 2,
-                            fit: FlexFit.tight,
-                            child: Text(
-                              'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.rssi}',
-                              style: const TextStyle(fontSize: 13.0),
-                            ),
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ).toList(),
-            ),
+                          subtitle: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              Flexible(
+                                flex: 1,
+                                fit: FlexFit.tight,
+                                child: Text(
+                                  'Major: ${beacon.major}\nMinor: ${beacon.minor}',
+                                  style: const TextStyle(fontSize: 13.0),
+                                ),
+                              ),
+                              Flexible(
+                                flex: 2,
+                                fit: FlexFit.tight,
+                                child: Text(
+                                  'Accuracy: ${beacon.accuracy}m\nRSSI: ${beacon.rssi}',
+                                  style: const TextStyle(fontSize: 13.0),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }),
+                    ).toList(),
+              ),
     );
   }
 }

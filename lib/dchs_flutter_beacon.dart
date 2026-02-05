@@ -36,8 +36,8 @@ class DchsFlutterBeacon {
   Future<bool> get initializeAndCheckScanning =>
       _platform.initializeAndCheckScanning();
   Future<bool> setLocationAuthorizationTypeDefault(
-          AuthorizationStatus authorizationStatus) =>
-      _platform.setLocationAuthorizationTypeDefault(authorizationStatus);
+    AuthorizationStatus authorizationStatus,
+  ) => _platform.setLocationAuthorizationTypeDefault(authorizationStatus);
   Future<AuthorizationStatus> get authorizationStatus =>
       _platform.authorizationStatus;
   Future<bool> get checkLocationServicesIfEnabled =>
@@ -56,6 +56,8 @@ class DchsFlutterBeacon {
       _platform.setBackgroundScanPeriod(scanPeriod);
   Future<bool> setBackgroundBetweenScanPeriod(int scanPeriod) =>
       _platform.setBackgroundBetweenScanPeriod(scanPeriod);
+  Future<bool> setEnableScheduledScanJobs(bool enable) =>
+      _platform.setEnableScheduledScanJobs(enable);
 
   Future<bool> setUseTrackingCache(bool enable) =>
       _platform.setUseTrackingCache(enable);

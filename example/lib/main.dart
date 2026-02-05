@@ -26,19 +26,12 @@ class MainApp extends StatelessWidget {
         primarySwatch: primary,
         appBarTheme: themeData.appBarTheme.copyWith(
           elevation: 0.5,
-          color: Colors.white,
-          actionsIconTheme: themeData.primaryIconTheme.copyWith(
-            color: primary,
-          ),
-          iconTheme: themeData.primaryIconTheme.copyWith(
-            color: primary,
-          ),
+          backgroundColor: Colors.white,
+          actionsIconTheme: themeData.primaryIconTheme.copyWith(color: primary),
+          iconTheme: themeData.primaryIconTheme.copyWith(color: primary),
         ),
       ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: primary,
-      ),
+      darkTheme: ThemeData(brightness: Brightness.dark, primarySwatch: primary),
       home: const HomePage(),
     );
   }

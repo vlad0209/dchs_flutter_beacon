@@ -29,12 +29,12 @@ class FlutterBeaconScanner(private val plugin: DchsFlutterBeaconPlugin, private 
 
     val rangingStreamHandler = object : EventChannel.StreamHandler {
         override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
-            Log.d("FLUTTER-BEACON - RANGING", "Start ranging = $arguments")
+            Log.d("FLUTTER-BEACON RANGING", "Start ranging = $arguments")
             startRanging(arguments, events)
         }
 
         override fun onCancel(arguments: Any?) {
-            Log.d("FLUTTER-BEACON - RANGING", "Stop ranging = $arguments")
+            Log.d("FLUTTER-BEACON RANGING", "Stop ranging = $arguments")
             stopRanging()
         }
     }
@@ -65,7 +65,7 @@ class FlutterBeaconScanner(private val plugin: DchsFlutterBeaconPlugin, private 
 
     fun startRanging() {
         if (regionRanging.isNullOrEmpty()) {
-            Log.e("FLUTTER-BEACON - RANGING", "Region ranging is null or empty. Ranging not started.")
+            Log.e("FLUTTER-BEACON RANGING", "Region ranging is null or empty. Ranging not started.")
             return
         }
         try {
@@ -83,7 +83,7 @@ class FlutterBeaconScanner(private val plugin: DchsFlutterBeaconPlugin, private 
     }
 
     fun stopRanging() {
-        Log.d("FLUTTER-BEACON - RANGING", "stopRanging() called")
+        Log.d("FLUTTER-BEACON RANGING", "stopRanging() called")
         if (!regionRanging.isNullOrEmpty()) {
             try {
                 val beaconManager = plugin.getBeaconManager()
@@ -106,11 +106,11 @@ class FlutterBeaconScanner(private val plugin: DchsFlutterBeaconPlugin, private 
                 if (eventSinkRanging != null) {
                     eventSinkRanging?.success(map)
                 } else {
-                    Log.e("FLUTTER-BEACON - RANGING", "eventSinkRanging is null inside handler")
+                    Log.e("FLUTTER-BEACON RANGING", "eventSinkRanging is null inside handler")
                 }
             }
         } else {
-            Log.e("FLUTTER-BEACON - RANGING", "eventSinkRanging is null before handler")
+            Log.e("FLUTTER-BEACON RANGING", "eventSinkRanging is null before handler")
         }
     }
     

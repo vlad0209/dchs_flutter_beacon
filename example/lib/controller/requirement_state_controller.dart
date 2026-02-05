@@ -16,32 +16,32 @@ class RequirementStateController extends GetxController {
       authorizationStatus.value == AuthorizationStatus.always;
   bool get locationServiceEnabled => locationService.value;
 
-  updateBluetoothState(BluetoothState state) {
+  void updateBluetoothState(BluetoothState state) {
     bluetoothState.value = state;
   }
 
-  updateAuthorizationStatus(AuthorizationStatus status) {
+  void updateAuthorizationStatus(AuthorizationStatus status) {
     authorizationStatus.value = status;
   }
 
-  updateLocationService(bool flag) {
+  void updateLocationService(bool flag) {
     locationService.value = flag;
   }
 
-  startBroadcasting() {
+  void startBroadcasting() {
     _startBroadcasting.value = true;
   }
 
-  stopBroadcasting() {
+  void stopBroadcasting() {
     _startBroadcasting.value = false;
   }
 
-  startScanning() {
+  void startScanning() {
     _startScanning.value = true;
     _pauseScanning.value = false;
   }
 
-  pauseScanning() {
+  void pauseScanning() {
     _startScanning.value = false;
     _pauseScanning.value = true;
   }
