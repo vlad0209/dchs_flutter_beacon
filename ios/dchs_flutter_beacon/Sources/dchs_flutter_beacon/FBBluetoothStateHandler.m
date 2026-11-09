@@ -1,15 +1,15 @@
 //
-//  FBAuthorizationStatusHandler.m
+//  FBBluetoothStateHandler.m
 //  flutter_beacon
 //
-//  Created by Alann Maulana on 15/10/19.
+//  Created by Alann Maulana on 24/08/19.
 //
 
-#import "FBAuthorizationStatusHandler.h"
-#import <DchsFlutterBeaconPlugin.h>
+#import "FBBluetoothStateHandler.h"
+#import "./include/dchs_flutter_beacon/DchsFlutterBeaconPlugin.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 
-@implementation FBAuthorizationStatusHandler
+@implementation FBBluetoothStateHandler
 
 - (instancetype) initWithFlutterBeaconPlugin:(DchsFlutterBeaconPlugin*) instance {
     if (self = [super init]) {
@@ -25,17 +25,17 @@
 
 - (FlutterError * _Nullable)onCancelWithArguments:(id _Nullable)arguments {
     if (self.instance) {
-        self.instance.flutterEventSinkAuthorization = nil;
+        self.instance.flutterEventSinkBluetooth = nil;
     }
     return nil;
 }
 
 - (FlutterError * _Nullable)onListenWithArguments:(id _Nullable)arguments eventSink:(nonnull FlutterEventSink)events {
     // initialize central manager if it itsn't
-    [self.instance initializeLocationManager];
+    [self.instance initializeCentralManager];
     
     if (self.instance) {
-        self.instance.flutterEventSinkAuthorization = events;
+        self.instance.flutterEventSinkBluetooth = events;
     }
     
     return nil;

@@ -6,7 +6,7 @@
 //
 
 #import "FBRangingStreamHandler.h"
-#import <DchsFlutterBeaconPlugin.h>
+#import "./include/dchs_flutter_beacon/DchsFlutterBeaconPlugin.h"
 
 @implementation FBRangingStreamHandler
 

@@ -1,4 +1,4 @@
-#import "DchsFlutterBeaconPlugin.h"
+#import "./include/dchs_flutter_beacon/DchsFlutterBeaconPlugin.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <CoreLocation/CoreLocation.h>
 #import "FBUtils.h"
